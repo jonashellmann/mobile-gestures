@@ -14,12 +14,22 @@ function openNewTab() {
 	w.focus();
 }
 
-mc.on("tripletap triple-swipe-down", function(ev) {
+function closeCurrentTab() {
+	browser.runtime.sendMessage({"url": "google.de"});
+}
+
+mc.on("triple-swipe-down", function(ev) {
     openNewTab();
 });
 
 mc.on("triple-swipe-up", function(ev) {
     reloadCurrentTab();
+});
+
+mc.on("tripletap", function(ev) {
+	console.log("Hallo1");
+    closeCurrentTab();
+	console.log("Hallo2");
 });
 
 

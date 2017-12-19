@@ -21,6 +21,10 @@
     "gecko": {
       "id": "mobile-gestures@jonas-hellmann.de"  
     }
+  },
+  
+  "background": {
+    "scripts": ["background.js"]
   }
 
 }
