@@ -7,7 +7,7 @@ mc.add( new Hammer.Swipe( { event: 'triple-swipe-up', pointers: 3, direction: Ha
 mc.add( new Hammer.Swipe( { event: 'triple-swipe-right', pointers: 3, direction: Hammer.DIRECTION_RIGHT } ) );
 
 function reloadCurrentTab() {
-	location.reload();
+	browser.runtime.sendMessage({"action": "refresh"});
 }
 
 function openNewTab() {

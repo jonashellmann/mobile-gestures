@@ -4,6 +4,10 @@ function openTab() {
 	browser.tabs.create({url:"about:blank"});
 }
 
+function refreshTab() {
+	browser.tabs.reload();
+}
+
 function logTabs(tabs) {
   for (let tab of tabs) {
 	var closedTab = browser.tabs.remove(tab.index + 1);
@@ -21,5 +25,8 @@ function notify(message) {
 	}
 	if(message.action=="open"){
 		openTab();
+	}
+	if(message.action=="refresh"){
+		refreshTab();
 	}
 }
