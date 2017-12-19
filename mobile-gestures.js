@@ -27,9 +27,7 @@ mc.on("triple-swipe-up", function(ev) {
 });
 
 mc.on("tripletap", function(ev) {
-	console.log("Hallo1");
     closeCurrentTab();
-	console.log("Hallo2");
 });
 
 

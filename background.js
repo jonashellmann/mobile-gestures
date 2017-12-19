@@ -2,8 +2,7 @@ browser.runtime.onMessage.addListener(notify);
 
 function logTabs(tabs) {
   for (let tab of tabs) {
-    console.log(tab.url);
-	// TODO: Close this tab
+	var closedTab = browser.tabs.remove(tab.index + 1);
   }
 }
 
