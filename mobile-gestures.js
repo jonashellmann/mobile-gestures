@@ -15,7 +15,7 @@ function openNewTab() {
 }
 
 function closeCurrentTab() {
-	browser.runtime.sendMessage({"url": "google.de"});
+	browser.runtime.sendMessage({"action": "close"});
 }
 
 mc.on("triple-swipe-down", function(ev) {

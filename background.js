@@ -2,8 +2,8 @@ browser.runtime.onMessage.addListener(notify);
 
 function logTabs(tabs) {
   for (let tab of tabs) {
-    // tab.url requires the `tabs` permission
     console.log(tab.url);
+	// TODO: Close this tab
   }
 }
 
@@ -12,6 +12,8 @@ function onError(error) {
 }
 
 function notify(message) {
-  var querying = browser.tabs.query({currentWindow: true, active: true});
-  querying.then(logTabs, onError);
+	if(message.action=="close"){
+		var querying = browser.tabs.query({currentWindow: true, active: true});
+		querying.then(logTabs, onError);
+	}
 }
