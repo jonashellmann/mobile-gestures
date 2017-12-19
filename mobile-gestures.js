@@ -29,9 +29,3 @@ mc.on("triple-swipe-up", function(ev) {
 mc.on("tripletap", function(ev) {
     closeCurrentTab();
 });
-
-
-// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/permissions --> Berechtigungen in manifest.json
-// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/browser_action --> Toolbar
-// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Examples --> Beispiele
-// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs --> Tabs
