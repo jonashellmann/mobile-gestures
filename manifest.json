@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Mobile Gestures",
-  "version": "0.1.1",
+  "version": "0.2.0",
 
   "description": "Adds three finger gestures to Firefox for Android.",
 
@@ -13,7 +13,7 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["jquery.min.js", "hammer.min.js", "mobile-gestures.js"]
+      "js": ["mobile-gestures.js"]
     }
   ],
   

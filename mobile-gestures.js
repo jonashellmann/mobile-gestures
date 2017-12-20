@@ -1,10 +1,48 @@
-var myElement = $( "body" );
-var mc = new Hammer.Manager(myElement[0]);
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
 
-mc.add( new Hammer.Tap( { event: 'tripletap', taps: 3 } ) );
-mc.add( new Hammer.Swipe( { event: 'triple-swipe-down', pointers: 3, direction: Hammer.DIRECTION_DOWN } ) );
-mc.add( new Hammer.Swipe( { event: 'triple-swipe-up', pointers: 3, direction: Hammer.DIRECTION_UP } ) );
-mc.add( new Hammer.Swipe( { event: 'triple-swipe-right', pointers: 3, direction: Hammer.DIRECTION_RIGHT } ) );
+var xDown = null;
+var yDown = null;
+
+function handleTouchStart(evt) {
+	if(evt.touches == 3) {
+		xDown = evt.touches[0].clientX;
+		yDown = evt.touches[0].clientY;
+	}
+}
+
+function handleTouchMove(evt) {
+	if( !xDown || !yDown ) {
+		return;
+	}
+	
+	var xUp = evt.touches[0].clientX;
+	var yUp = evt.touches[0].clientY;
+	
+	var xDiff = xDown - xUp;
+	var yDiff = yDown - yUp;
+	
+	if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
+        if ( xDiff > 0 ) {
+            swipeLeft(); 
+        } else {
+            swipeRight();
+        }                       
+    } else {
+        if ( yDiff > 0 ) {
+            swipeUp(); 
+        } else { 
+            swipeDown();
+        }                                                                 
+    }
+	
+	resetValues();
+}
+
+function resetValues() {
+	xDown = null;
+	yDown = null;
+}
 
 function reloadCurrentTab() {
 	browser.runtime.sendMessage({"action": "refresh"});
@@ -18,14 +56,18 @@ function closeCurrentTab() {
 	browser.runtime.sendMessage({"action": "close"});
 }
 
-mc.on("triple-swipe-down", function(ev) {
-    openNewTab();
-});
+function swipeUp() {
+	reloadCurrentTab();
+}
 
-mc.on("tripletap triple-swipe-up", function(ev) {
-    reloadCurrentTab();
-});
+function swipeDown() {
+	openNewTab();
+}
 
-mc.on("triple-swipe-right", function(ev) {
-    closeCurrentTab();
-});
+function swipeLeft() {
+	closeCurrentTab();
+}
+
+function swipeRight() {
+	
+}
