@@ -24,6 +24,10 @@ function handleTouchMove(evt) {
 	var xDiff = xDown - xUp;
 	var yDiff = yDown - yUp;
 	
+	if(xDiff < 200 && yDiff < 200) {
+		return;
+	}
+	
 	if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
         if ( xDiff > 0 ) {
             swipeLeft(); 
