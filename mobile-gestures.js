@@ -7,7 +7,7 @@ var xDown = null;
 var yDown = null;
 
 function handleTouchStart(evt) {
-	if(evt.touches == 3) {
+	if(evt.touches.length == 3) {
 		xDown = evt.touches[0].clientX;
 		yDown = evt.touches[0].clientY;
 	}
