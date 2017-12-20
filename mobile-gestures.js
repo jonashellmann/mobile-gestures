@@ -1,3 +1,5 @@
+// Detect Shake using JavaScript: http://qnimate.com/detect-shake-using-javascript/
+
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
 
