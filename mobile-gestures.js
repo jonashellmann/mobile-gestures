@@ -1,53 +1,84 @@
-// Detect Shake using JavaScript: http://qnimate.com/detect-shake-using-javascript/
-
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
+document.addEventListener('touchend', handleTouchEnd, false);
 
-var xDown = null;
-var yDown = null;
+var x = null;
+var y = null;
+
+var movement = "";
+var last = "";
 
 function handleTouchStart(evt) {
-	if(evt.touches.length == 3) {
-		xDown = evt.touches[0].clientX;
-		yDown = evt.touches[0].clientY;
+	if(evt.touches == 1) { // only if one finger is used
+		x = evt.touches[0].clientX;
+		y = evt.touches[0].clientY;
 	}
 }
 
 function handleTouchMove(evt) {
-	if( !xDown || !yDown ) {
+	if( !x || !y ) {
 		return;
 	}
 	
-	var xUp = evt.touches[0].clientX;
-	var yUp = evt.touches[0].clientY;
+	var xCur = evt.touches[0].screenX;
+	var yCur = evt.touches[0].screenY;
 	
-	var xDiff = xDown - xUp;
-	var yDiff = yDown - yUp;
+	var xDiff = xCur - x;
+	var yDiff = yCur - y;
 	
-	if(xDiff < 200 && yDiff < 200) {
-		return;
+	if(Math.abs(diffX) > 300 || Math.abs(diffY) > 300) { // movement more than 300px in any direction
+
+	  var dir = "";
+
+	  if(Math.abs(diffX) > Math.abs(diffY)) { // vertical movement
+		if(diffX > 0) { // right
+		  dir = "R";
+		}
+		else { // left
+		  dir = "L";
+		}
+	  }
+	  else { // horizontal movement
+		if(diffY > 0) { // down
+		  dir = "D";
+		}
+		else { // up
+		  dir = "U";
+		}
+	  }
+
+	  if(last != dir) {
+		x = curX;
+		y = curY;
+		last = dir;
+		movement += dir;
+	  }
+
 	}
-	
-	if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
-        if ( xDiff > 0 ) {
-            swipeLeft(); 
-        } else {
-            swipeRight();
-        }                       
-    } else {
-        if ( yDiff > 0 ) {
-            swipeUp(); 
-        } else { 
-            swipeDown();
-        }                                                                 
-    }
-	
+}
+
+function handleTouchEnd(evt) {
+	switch(movement) {
+		case "DR":
+			openNewTab();
+			break;
+		case "UR":
+			reloadCurrentTab();
+			break;
+		case "RL":
+			closeCurrentTab();
+			break;
+		default:
+			break;
+	}
 	resetValues();
 }
 
 function resetValues() {
-	xDown = null;
-	yDown = null;
+	x = null;
+	y = null;
+	movement = "";
+	last="";
 }
 
 function reloadCurrentTab() {
@@ -60,20 +91,4 @@ function openNewTab() {
 
 function closeCurrentTab() {
 	browser.runtime.sendMessage({"action": "close"});
-}
-
-function swipeUp() {
-	reloadCurrentTab();
-}
-
-function swipeDown() {
-	openNewTab();
-}
-
-function swipeLeft() {
-	closeCurrentTab();
-}
-
-function swipeRight() {
-	
 }
