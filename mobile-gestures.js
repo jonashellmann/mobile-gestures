@@ -20,7 +20,7 @@ function handleMouseDown(evt) {
 }
 
 function handleTouchStart(evt) {
-	if(evt.touches == 1) { // only if one finger is used
+	if(evt.touches.length == 1) { // only if one finger is used
 		x = evt.touches[0].screenX;
 		y = evt.touches[0].screenY;
 	}
