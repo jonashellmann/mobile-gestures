@@ -10,8 +10,8 @@ var last = "";
 
 function handleTouchStart(evt) {
 	if(evt.touches == 1) { // only if one finger is used
-		x = evt.touches[0].clientX;
-		y = evt.touches[0].clientY;
+		x = evt.touches[0].screenX;
+		y = evt.touches[0].screenY;
 	}
 }
 
@@ -26,12 +26,12 @@ function handleTouchMove(evt) {
 	var xDiff = xCur - x;
 	var yDiff = yCur - y;
 	
-	if(Math.abs(diffX) > 300 || Math.abs(diffY) > 300) { // movement more than 300px in any direction
+	if(Math.abs(xDiff) > 300 || Math.abs(yDiff) > 300) { // movement more than 300px in any direction
 
 	  var dir = "";
 
-	  if(Math.abs(diffX) > Math.abs(diffY)) { // vertical movement
-		if(diffX > 0) { // right
+	  if(Math.abs(xDiff) > Math.abs(yDiff)) { // vertical movement
+		if(xDiff > 0) { // right
 		  dir = "R";
 		}
 		else { // left
@@ -39,7 +39,7 @@ function handleTouchMove(evt) {
 		}
 	  }
 	  else { // horizontal movement
-		if(diffY > 0) { // down
+		if(yDiff > 0) { // down
 		  dir = "D";
 		}
 		else { // up
@@ -48,8 +48,8 @@ function handleTouchMove(evt) {
 	  }
 
 	  if(last != dir) {
-		x = curX;
-		y = curY;
+		x = xCur;
+		y = yCur;
 		last = dir;
 		movement += dir;
 	  }
