@@ -1,12 +1,23 @@
+"use strict";
+
+document.addEventListener('mousedown', handleMouseDown, false);
+document.addEventListener('mousemove', handleMouseMove, false);
+document.addEventListener('mouseup', handleEnd, false);
+
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
-document.addEventListener('touchend', handleTouchEnd, false);
+document.addEventListener('touchend', handleEnd, false);
 
 var x = null;
 var y = null;
 
 var movement = "";
 var last = "";
+
+function handleMouseDown(evt) {
+	x = evt.screenX;
+	y = evt.screenY;
+}
 
 function handleTouchStart(evt) {
 	if(evt.touches == 1) { // only if one finger is used
@@ -15,14 +26,23 @@ function handleTouchStart(evt) {
 	}
 }
 
+function handleMouseMove(evt) {
+	if( !x || !y ) {
+		return;
+	}
+	
+	handleMove(evt.screenX, evt.screenY);
+}
+
 function handleTouchMove(evt) {
 	if( !x || !y ) {
 		return;
 	}
 	
-	var xCur = evt.touches[0].screenX;
-	var yCur = evt.touches[0].screenY;
-	
+	handleMove(evt.touches[0].screenX, evt.touches[0].screenY);
+}
+
+function handleMove(xCur, yCur) {
 	var xDiff = xCur - x;
 	var yDiff = yCur - y;
 	
@@ -57,7 +77,7 @@ function handleTouchMove(evt) {
 	}
 }
 
-function handleTouchEnd(evt) {
+function handleEnd(evt) {
 	switch(movement) {
 		case "DR":
 			openNewTab();
