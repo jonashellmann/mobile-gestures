@@ -11,24 +11,7 @@ function refreshTab() {
 function closeTab(tabs) {
   for (let tab of tabs) {
 	var removing = browser.tabs.remove(tab.index);
-	removing.then(onSuccess,onError);
   }
-}
-
-function openPrivateWindow(){
-	var creating = browser.windows.create({
-		url: 'https://google.com',
-		icognito: true
-	});
-	creating.then(onSuccess,onError);
-}
-
-function onSuccess() {
-	
-}
-
-function onError(error) {
-  console.log(`Error: ${error}`);
 }
 
 function notify(message) {
@@ -42,9 +25,5 @@ function notify(message) {
 	}
 	if(message.action=="refresh"){
 		refreshTab();
-	}
-	if(message.action=="openPrivate") {
-		console.log("Should open private");
-		openPrivateWindow();
 	}
 }

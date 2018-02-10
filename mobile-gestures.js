@@ -74,9 +74,6 @@ function handleEnd(evt) {
 		case "RL":
 			closeCurrentTab();
 			break;
-		case "DL":
-			openPrivateWindow();
-			break;
 		default:
 			break;
 	}
@@ -100,8 +97,4 @@ function openNewTab() {
 
 function closeCurrentTab() {
 	browser.runtime.sendMessage({"action": "close"});
-}
-
-function openPrivateWindow() {
-	browser.runtime.sendMessage({"action": "openPrivate"});
 }
