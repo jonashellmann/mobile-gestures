@@ -15,14 +15,14 @@ var movement = "";
 var last = "";
 
 function handleMouseDown(evt) {
-	x = evt.screenX;
-	y = evt.screenY;
+	x = evt.clientX;
+	y = evt.clientY;
 }
 
 function handleTouchStart(evt) {
 	if(evt.touches.length == 1) { // only if one finger is used
-		x = evt.touches[0].screenX;
-		y = evt.touches[0].screenY;
+		x = evt.touches[0].clientX;
+		y = evt.touches[0].clientY;
 	}
 }
 
@@ -31,7 +31,7 @@ function handleMouseMove(evt) {
 		return;
 	}
 	
-	handleMove(evt.screenX, evt.screenY);
+	handleMove(evt.clientX, evt.clientY);
 }
 
 function handleTouchMove(evt) {
@@ -39,7 +39,7 @@ function handleTouchMove(evt) {
 		return;
 	}
 	
-	handleMove(evt.touches[0].screenX, evt.touches[0].screenY);
+	handleMove(evt.touches[0].clientX, evt.touches[0].clientY);
 }
 
 function handleMove(xCur, yCur) {
