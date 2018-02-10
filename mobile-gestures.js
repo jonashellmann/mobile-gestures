@@ -17,6 +17,8 @@ var last = "";
 function handleMouseDown(evt) {
 	x = evt.clientX;
 	y = evt.clientY;
+	
+	console.log("Down: x is " + evt.clientX + " and y is " + evt.clientY);
 }
 
 function handleTouchStart(evt) {
@@ -30,6 +32,8 @@ function handleMouseMove(evt) {
 	if( !x || !y ) {
 		return;
 	}
+	
+	console.log("Move: x is " + evt.clientX + " and y is " + evt.clientY);
 	
 	handleMove(evt.clientX, evt.clientY);
 }
@@ -68,6 +72,7 @@ function handleMove(xCur, yCur) {
 	  }
 
 	  if(last != dir) {
+		console.log(dir);
 		x = xCur;
 		y = yCur;
 		last = dir;

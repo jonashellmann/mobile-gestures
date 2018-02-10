@@ -17,7 +17,7 @@ function closeTab(tabs) {
 function openPrivateWindow(){
 	var creating = browser.windows.create({
 		url: 'https://google.com',
-		icognito: true;
+		icognito: true
 	});
 }
 
