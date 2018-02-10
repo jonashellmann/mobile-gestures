@@ -16,7 +16,6 @@ function closeTab(tabs) {
 
 function notify(message) {
 	if(message.action=="close"){
-		console.log("Should close tab");
 		var querying = browser.tabs.query({currentWindow: true, active: true});
 		querying.then(closeTab, onError);
 	}
