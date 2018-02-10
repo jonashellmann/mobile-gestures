@@ -46,7 +46,7 @@ function handleMove(xCur, yCur) {
 	var xDiff = xCur - x;
 	var yDiff = yCur - y;
 	
-	if(Math.abs(xDiff) > 300 || Math.abs(yDiff) > 300) { // movement more than 300px in any direction
+	if(Math.abs(xDiff) > 150 || Math.abs(yDiff) > 150) { // movement more than 300px in any direction
 
 	  var dir = "";
 
