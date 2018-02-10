@@ -23,10 +23,6 @@ function handleTouchStart(evt) {
 	if(evt.touches.length == 1) { // only if one finger is used
 		x = evt.touches[0].clientX;
 		y = evt.touches[0].clientY;
-		console.log("Down: x is " + evt.clientX + " and y is " + evt.clientY);
-	}
-	else {
-	    console.log("Down touches: " + evt.touches.length);	
 	}
 }
 
@@ -35,8 +31,6 @@ function handleMouseMove(evt) {
 		return;
 	}
 	
-	console.log("Move: x is " + evt.clientX + " and y is " + evt.clientY);
-	
 	handleMove(evt.clientX, evt.clientY);
 }
 
@@ -44,8 +38,6 @@ function handleTouchMove(evt) {
 	if( !x || !y ) {
 		return;
 	}
-	
-	console.log("Down: x is " + evt.touches[0].clientX + " and y is " + evt.touches[0].clientY);
 	
 	handleMove(evt.touches[0].clientX, evt.touches[0].clientY);
 }
