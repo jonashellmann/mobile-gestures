@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Mobile Gestures",
-  "version": "0.6.0",
+  "version": "0.6.1",
 
   "description": "Adds mouse gestures to Firefox and one-finger-gestures to Firefox for Android.",
 
