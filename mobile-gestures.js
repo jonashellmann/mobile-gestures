@@ -51,7 +51,6 @@ function handleMove(xCur, yCur) {
 	  }
 
 	  if(last != dir) {
-		console.log(dir);
 		x = xCur;
 		y = yCur;
 		last = dir;
