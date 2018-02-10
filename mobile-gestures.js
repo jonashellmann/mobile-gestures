@@ -61,6 +61,9 @@ function handleMove(xCur, yCur) {
 }
 
 function handleEnd(evt) {
+	
+	console.log(movement);
+	
 	switch(movement) {
 		case "DR":
 			openNewTab();

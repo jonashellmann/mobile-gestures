@@ -10,7 +10,8 @@ function refreshTab() {
 
 function closeTab(tabs) {
   for (let tab of tabs) {
-	var closedTab = browser.tabs.remove(tab.index + 1);
+	var removing = browser.tabs.remove(tab.index);
+	removing.then(onSuccess,onError);
   }
 }
 
@@ -19,6 +20,11 @@ function openPrivateWindow(){
 		url: 'https://google.com',
 		icognito: true
 	});
+	creating.then(onSuccess,onError);
+}
+
+function onSuccess() {
+	
 }
 
 function onError(error) {
@@ -27,6 +33,7 @@ function onError(error) {
 
 function notify(message) {
 	if(message.action=="close"){
+		console.log("Should close tab");
 		var querying = browser.tabs.query({currentWindow: true, active: true});
 		querying.then(closeTab, onError);
 	}
@@ -37,6 +44,7 @@ function notify(message) {
 		refreshTab();
 	}
 	if(message.action=="openPrivate") {
+		console.log("Should open private");
 		openPrivateWindow();
 	}
 }
