@@ -10,7 +10,7 @@ function refreshTab() {
 
 function closeTab(tabs) {
   for (let tab of tabs) {
-	var removing = browser.tabs.remove(tab.index + 1);
+	var removing = browser.tabs.remove(tab.id);
 	removing.then(onSuccess,onError);
   }
 }
@@ -18,7 +18,7 @@ function closeTab(tabs) {
 function onSuccess() {}
 
 function onError(error) {
-	 console.log("Error: ${error}");
+	console.log("Error: " + error});
 }	
 
 function notify(message) {
