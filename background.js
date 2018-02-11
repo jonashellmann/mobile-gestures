@@ -18,7 +18,7 @@ function closeTab(tabs) {
 function onSuccess() {}
 
 function onError(error) {
-	console.log("Error: " + error});
+	console.log("Error: " + error);
 }	
 
 function notify(message) {
