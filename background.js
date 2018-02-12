@@ -18,7 +18,7 @@ function closeTab(tabs) {
 }
 
 function goBackInHistory() {
-	window.history.back();
+	// window.history.back();
 }
 
 function switchToNextTab(tabs) {
@@ -29,7 +29,7 @@ function switchToNextTab(tabs) {
 	updating.then(onSuccess, onError);
 }
 
-function switchToPreviousTab() {
+function switchToPreviousTab(tabs) {
 	var updating = browser.tabs.update(
 		tabs[curTabIndex - 1].id,
 		{active: true}
