@@ -15,7 +15,7 @@ function closeTab(tabs) {
 }
 
 function goBackInHistory() {
-	
+	window.history.back();
 }
 
 function switchToNextTab() {
