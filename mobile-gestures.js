@@ -88,6 +88,15 @@ function handleEnd(evt) {
 		case "RL":
 			closeCurrentTab();
 			break;
+		case "RDL":
+			goBackInHistory();
+			break;
+		case "UR":
+			switchToNextTab();
+			break;
+		case "UL":
+			switchToPreviousTab();
+			break;
 		default:
 			break;
 	}
@@ -111,4 +120,16 @@ function openNewTab() {
 
 function closeCurrentTab() {
 	browser.runtime.sendMessage({"action": "close"});
+}
+
+function goBackInHistory() {
+	browser.runtime.sendMessage({"action": "back"});
+}
+
+function switchToNextTab() {
+	browser.runtime.sendMessage({"action": "next"});
+}
+
+function switchToPreviousTab() {
+	browser.runtime.sendMessage({"action": "previous"});
 }
