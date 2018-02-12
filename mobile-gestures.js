@@ -11,6 +11,7 @@ var movement = "";
 var last = "";
 
 function handleTouchStart(evt) {
+	// TODO extract condition into method
 	if(evt.touches.length == 1) { // only if one finger is used
 		x = evt.touches[0].clientX;
 		y = evt.touches[0].clientY;
@@ -29,7 +30,8 @@ function handleMove(xCur, yCur) {
 	var xDiff = xCur - x;
 	var yDiff = yCur - y;
 	
-	if(Math.abs(xDiff) > 150 || Math.abs(yDiff) > 150) { // movement more than 300px in any direction
+	// TODO Magic number
+	if(Math.abs(xDiff) > 150 || Math.abs(yDiff) > 150) { // movement more than x px in any direction
 
 	  var dir = "";
 
@@ -61,6 +63,7 @@ function handleMove(xCur, yCur) {
 }
 
 function handleEnd(evt) {
+	// TODO Any way to replace this switch-block?
 	switch(movement) {
 		case "DR":
 			openNewTab();
@@ -93,6 +96,7 @@ function resetValues() {
 	last="";
 }
 
+// TODO Duplicate code
 function reloadCurrentTab() {
 	browser.runtime.sendMessage({"action": "refresh"});
 }
