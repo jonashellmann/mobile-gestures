@@ -14,6 +14,18 @@ function closeTab(tabs) {
   }
 }
 
+function goBackInHistory() {
+	
+}
+
+function switchToNextTab() {
+	
+}
+
+function switchToPreviousTab() {
+	
+}
+
 function notify(message) {
 	if(message.action=="close"){
 		var querying = browser.tabs.query({currentWindow: true, active: true});
@@ -24,5 +36,14 @@ function notify(message) {
 	}
 	if(message.action=="refresh"){
 		refreshTab();
+	}
+	if(message.action=="back"){
+		goBackInHistory();
+	}
+	if(message.action=="next"){
+		switchToNextTab();
+	}
+	if(message.action=="previous"){
+		switchToPreviousTab();
 	}
 }
