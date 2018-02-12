@@ -61,13 +61,13 @@ function notify(message) {
 	if(message.action=="next"){
 		var querying = browser.tabs.query({currentWindow: true, active: true});
 		querying.then(setCurTabIndex, onError);
-		var querying2 = browser.tabs.query({currentWindow: true);
+		var querying2 = browser.tabs.query({currentWindow: true});
 		querying2.then(switchToNextTab, onError);
 	}
 	if(message.action=="previous"){
 		var querying = browser.tabs.query({currentWindow: true, active: true});
 		querying.then(setCurTabIndex, onError);
-		var querying2 = browser.tabs.query({currentWindow: true);
+		var querying2 = browser.tabs.query({currentWindow: true});
 		querying2.then(switchToPreviousTab, onError);
 	}
 }
