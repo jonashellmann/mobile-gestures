@@ -11,15 +11,8 @@ function refreshTab() {
 function closeTab(tabs) {
   for (let tab of tabs) {
 	var removing = browser.tabs.remove(tab.id);
-	removing.then(onSuccess,onError);
   }
 }
-
-function onSuccess() {}
-
-function onError(error) {
-	console.log("Error: " + error);
-}	
 
 function notify(message) {
 	if(message.action=="close"){

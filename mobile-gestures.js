@@ -1,5 +1,9 @@
 "use strict";
 
+document.addEventListener('mousedown', handleTouchStart, false);
+document.addEventListener('mousemove', handleTouchMove, false);
+document.addEventListener('mouseup', handleEnd, false);
+
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
 document.addEventListener('touchend', handleEnd, false);
@@ -9,6 +13,19 @@ var y = null;
 
 var movement = "";
 var last = "";
+
+function handleMouseStart(evt) {
+	x = evt.clientX;
+	y = evt.clientY;
+}
+
+function handleMouseMove(evt) {
+	if( !x || !y ) {
+		return;
+	}
+	
+	handleMove(evt.clientX, evt.clientY);
+}
 
 function handleTouchStart(evt) {
 	if(evt.touches.length == 1) { // only if one finger is used
@@ -65,7 +82,7 @@ function handleEnd(evt) {
 		case "DR":
 			openNewTab();
 			break;
-		case "UR":
+		case "DL":
 			reloadCurrentTab();
 			break;
 		case "RL":
