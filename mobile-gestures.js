@@ -4,6 +4,8 @@ document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
 document.addEventListener('touchend', handleEnd, false);
 
+const minTouchMovement = 150;
+
 var x = null;
 var y = null;
 
@@ -11,8 +13,7 @@ var movement = "";
 var last = "";
 
 function handleTouchStart(evt) {
-	// TODO extract condition into method
-	if(evt.touches.length == 1) { // only if one finger is used
+	if(evt.touches.length == 1) {
 		x = evt.touches[0].clientX;
 		y = evt.touches[0].clientY;
 	}
@@ -30,8 +31,7 @@ function handleMove(xCur, yCur) {
 	var xDiff = xCur - x;
 	var yDiff = yCur - y;
 	
-	// TODO Magic number
-	if(Math.abs(xDiff) > 150 || Math.abs(yDiff) > 150) { // movement more than x px in any direction
+	if(Math.abs(xDiff) > minTouchMovement || Math.abs(yDiff) > minTouchMovement) { // movement more than x px in any direction
 
 	  var dir = "";
 
@@ -96,27 +96,30 @@ function resetValues() {
 	last="";
 }
 
-// TODO Duplicate code
 function reloadCurrentTab() {
-	browser.runtime.sendMessage({"action": "refresh"});
+	sendMessage("refresh");
 }
 
 function openNewTab() {
-	browser.runtime.sendMessage({"action": "open"});
+	sendMessage("open");
 }
 
 function closeCurrentTab() {
-	browser.runtime.sendMessage({"action": "close"});
+	sendMessage("close");
 }
 
 function goBackInHistory() {
-	browser.runtime.sendMessage({"action": "back"});
+	sendMessage("back");
 }
 
 function switchToNextTab() {
-	browser.runtime.sendMessage({"action": "next"});
+	sendMessage("next");
 }
 
 function switchToPreviousTab() {
-	browser.runtime.sendMessage({"action": "previous"});
+	sendMessage("previous");
+}
+
+function sendMessage(action) {
+	browser.runtime.sendMessage({"action": action});
 }

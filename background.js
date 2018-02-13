@@ -10,11 +10,19 @@ function refreshTab() {
 	browser.tabs.reload();
 }
 
-function closeTab(tabs) {
-  for (let tab of tabs) {
-	var removing = browser.tabs.remove(tab.id);
-	removing.then(onSuccess, onError);
-  }
+function closeTab() {
+	var querying = browser.tabs.query({currentWindow: true, active: true});
+	querying.then(
+		function(tabs){
+			for (let tab of tabs) {
+				var removing = browser.tabs.remove(tab.id);
+				removing.then(onSuccess, onError);
+			}
+		}, 
+		function(error) { 
+			console.log("Error: " + error); 
+		}
+	);
 }
 
 function goBackInHistory() {
@@ -22,40 +30,45 @@ function goBackInHistory() {
 	// window.history.back();
 }
 
-function switchToNextTab(tabs) {
-	var updating = browser.tabs.update(
-		tabs[curTabIndex + 1].id,
-		{active: true}
-	);
-	// TODO Anonymous function for onSuccess
-	updating.then(onSuccess, onError);
+function switchToNextTab() {
+	switchTab(1);
 }
 
-function switchToPreviousTab(tabs) {
-	var updating = browser.tabs.update(
-		tabs[curTabIndex - 1].id,
-		{active: true}
+function switchToPreviousTab() {
+	switchTab(-1);
+}
+
+function switchTab(offsetFromCurrent) {
+	var querying = browser.tabs.query({currentWindow: true, active: true});
+	querying.then(
+		setCurTabIndex, 
+		function(error) {
+			console.log("Error: " + error);
+		}
 	);
-	// TODO Anonymous function for onSuccess
-	updating.then(onSuccess, onError);
+	
+	querying = browser.tabs.query({currentWindow: true});
+	querying.then(
+		function(tabs) {
+			var updating = browser.tabs.update(
+				tabs[curTabIndex + offsetFromCurrent].id,
+				{active: true}
+			);
+		}, 
+		function(error) { 
+			console.log("Error: " + error); 
+		}
+	);	
 }
 
 function setCurTabIndex(tabs) {
 	curTabIndex = tabs[0].index;
 }
 
-// TODO Delete this empty function
-function onSuccess() {  }
-function onError(error) { console.log("Error: " + error); }
-
 function notify(message) {
 	// TODO Handling of message, other option then if?
 	if(message.action=="close"){
-		// Don't do this here
-		// TODO Querying for active tab in seperate function
-		var querying = browser.tabs.query({currentWindow: true, active: true});
-		// Anonymous function for closeTab after extracting this in a method
-		querying.then(closeTab, onError);
+		closeTab();
 	}
 	if(message.action=="open"){
 		openTab();
@@ -67,21 +80,9 @@ function notify(message) {
 		goBackInHistory();
 	}
 	if(message.action=="next"){
-		// TODO Don't do this here
-		var querying = browser.tabs.query({currentWindow: true, active: true});
-		querying.then(setCurTabIndex, onError);
-		
-		// TODO Name of variable
-		var querying2 = browser.tabs.query({currentWindow: true});
-		querying2.then(switchToNextTab, onError);
+		switchToNextTab();
 	}
 	if(message.action=="previous"){
-		// TODO Don't do this here
-		var querying = browser.tabs.query({currentWindow: true, active: true});
-		querying.then(setCurTabIndex, onError);
-		
-		// TODO Name of variable
-		var querying2 = browser.tabs.query({currentWindow: true});
-		querying2.then(switchToPreviousTab, onError);
+		switchToPreviousTab();
 	}
 }
