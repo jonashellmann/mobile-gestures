@@ -1,6 +1,23 @@
 browser.runtime.onMessage.addListener(notify);
+browser.runtime.onInstalled.addListener(handleInstalled);
 
 var curTabIndex;
+
+function handleInstalled(details) {
+	if(details.reason=="install") {
+		browser.storage.local.set({
+            settings: {
+				open: 'DR',
+                refresh: 'DL',
+				close: 'RL',
+				// back: 'RDL',
+				next: 'UR',
+				previous: 'UL',
+				options: 'DRUL'
+			},
+        });
+	}
+}
 
 function openTab() {
 	browser.tabs.create({url:"about:blank"});
@@ -25,10 +42,8 @@ function closeTab() {
 	);
 }
 
-function goBackInHistory() {
-	// TODO Implement method
-	// window.history.back();
-}
+// TODO: Add functionality
+/* function goBackInHistory() { } */
 
 function switchToNextTab() {
 	switchTab(1);
@@ -65,24 +80,32 @@ function setCurTabIndex(tabs) {
 	curTabIndex = tabs[0].index;
 }
 
+function openOptionsPage() {
+	browser.runtime.openOptionsPage();
+}
+
 function notify(message) {
 	// TODO Handling of message, other option then if?
-	if(message.action=="close"){
+	if(message.action == "close") {
 		closeTab();
 	}
-	if(message.action=="open"){
+	if(message.action == "open") {
 		openTab();
 	}
-	if(message.action=="refresh"){
+	if(message.action == "refresh") {
 		refreshTab();
 	}
-	if(message.action=="back"){
+	// TODO: Uncomment when functionality added 
+	/* if(message.action == "back") {
 		goBackInHistory();
-	}
-	if(message.action=="next"){
+	} */
+	if(message.action == "next") {
 		switchToNextTab();
 	}
-	if(message.action=="previous"){
+	if(message.action == "previous") {
 		switchToPreviousTab();
+	}
+	if(message.action == "options") {
+		openOptionsPage();
 	}
 }

@@ -63,29 +63,40 @@ function handleMove(xCur, yCur) {
 }
 
 function handleEnd(evt) {
-	// TODO Any way to replace this switch-block?
-	switch(movement) {
-		case "DR":
-			openNewTab();
-			break;
-		case "DL":
-			reloadCurrentTab();
-			break;
-		case "RL":
-			closeCurrentTab();
-			break;
-		case "RDL":
-			goBackInHistory();
-			break;
-		case "UR":
-			switchToNextTab();
-			break;
-		case "UL":
-			switchToPreviousTab();
-			break;
-		default:
-			break;
-	}
+	var getSettings =  browser.storage.local.get("settings");
+		getSettings.then((res) => {
+			const {settings} = res;
+			
+			// TODO: Any way to replace this switch-block?
+			switch(movement) {
+				case settings.open:
+					openNewTab();
+					break;
+				case settings.refresh:
+					reloadCurrentTab();
+					break;
+				case settings.close:
+					closeCurrentTab();
+					break;
+				// TODO: Uncomment when functionality added 
+				/* case settings.back:
+					goBackInHistory();
+					break; */
+				case settings.next:
+					switchToNextTab();
+					break;
+				case settings.previous:
+					switchToPreviousTab();
+					break;
+				case settings.options:
+					openOptionsPage();
+					break;
+				default:
+					break;
+			}
+			
+	});
+	
 	resetValues();
 }
 
@@ -108,9 +119,10 @@ function closeCurrentTab() {
 	sendMessage("close");
 }
 
-function goBackInHistory() {
+// TODO: Uncomment when functionality added 
+/* function goBackInHistory() {
 	sendMessage("back");
-}
+} */
 
 function switchToNextTab() {
 	sendMessage("next");
@@ -118,6 +130,10 @@ function switchToNextTab() {
 
 function switchToPreviousTab() {
 	sendMessage("previous");
+}
+
+function openOptionsPage() {
+	sendMessage("options");
 }
 
 function sendMessage(action) {
